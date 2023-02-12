@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Banner from '../components/Banner'
 import Footer from '../components/Footer'
 import Products from '../components/Products'
 import SearchedProducts from '../components/SearchedProducts'
-
+import Context from '../context/Context'
 
 
 const Wrapper = styled.div`
@@ -120,14 +120,15 @@ const PriceFilter = styled.input`
 const Home = () => {
 
   const navigate = useNavigate();
+  const context = useContext(Context);
 
-  const clickHandler = () =>{
+  const clickHandler = () => {
     // navigate(".groceries")
     // to=""
   }
 
 
-  const viewToggler = () =>{
+  const viewToggler = () => {
 
     const wrapper = document.getElementsByClassName("productCardWrapper");
     const imgContainer = document.getElementsByClassName("productCardImgContainer");
@@ -137,45 +138,45 @@ const Home = () => {
     const imgContainerArray = Array.from(imgContainer);
     const paragraphArray = Array.from(cardParagraph);
 
-    
-    if(wrapper[0].style.display == "flex"){
-      wrapperArray.forEach(elem=>{
+
+    if (wrapper[0].style.display == "flex") {
+      wrapperArray.forEach(elem => {
         elem.style.display = "block";
         elem.style.width = "300px";
         elem.style.marginLeft = "unset";
       })
-  
-      imgContainerArray.forEach(elem=>{
+
+      imgContainerArray.forEach(elem => {
         elem.style.height = "60%";
         elem.flex = "1";
         elem.style.width = "90%";
       })
-  
-      paragraphArray.forEach(elem=>{
+
+      paragraphArray.forEach(elem => {
         elem.style.display = "none";
       })
     }
 
-    else{
-      wrapperArray.forEach(elem=>{
+    else {
+      wrapperArray.forEach(elem => {
         elem.style.display = "flex";
         elem.style.width = "950px";
         elem.style.height = "250px";
         elem.style.marginLeft = "2rem";
       })
-  
-      imgContainerArray.forEach(elem=>{
+
+      imgContainerArray.forEach(elem => {
         elem.style.height = "90%";
         elem.flex = "1";
         elem.style.width = "500px";
       })
-  
-      paragraphArray.forEach(elem=>{
+
+      paragraphArray.forEach(elem => {
         elem.style.display = "block";
       })
     }
 
-    
+
 
   }
 
@@ -183,7 +184,7 @@ const Home = () => {
 
   // let price = 1000;
 
-  const check = () =>{
+  const check = () => {
 
     setFprice(document.getElementById("priceFilter").value);
     // price = document.getElementById("priceFilter").value;
@@ -192,100 +193,153 @@ const Home = () => {
   }
 
 
+
+
+
+
+
+
+  const authHandler = async () => {
+    // e.preventDefault();
+
+    try {
+
+      const res = await fetch('/auth', {
+        method: "post",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+
+          token: localStorage.getItem("jwt")
+        })
+
+      })
+
+      const response = await res.json();
+      context.updateUser(response.user);
+      // window.alert(response.message);
+
+      // setUser({name:response.user.name, email:response.user.email, number:response.user.number, address:response.user.address})
+      // setUserName(response.user.name)
+      // console.log("test res ", response.message)
+      if (response.message === "login with token sucessfully") {
+        // console.log(document.getElementById("username"))
+        context.updateLoggedIn(true);
+      }
+    }
+
+    catch (err) {
+      context.updateLoggedIn(true);
+
+    }
+
+
+
+  }
+
+
+
+  useEffect(()=>{
+    authHandler();
+  },[])
+
+
   return (
     <Wrapper>
-        <SidebarWrapper>
-          
-          <NavLinks>
-            <Heading>Categorie</Heading>
-            <NavLink href="#smartphones">smartphones</NavLink>
-            <NavLink href="#laptops">laptops</NavLink>
-            <NavLink href="#fragrances">fragrances</NavLink>
-            <NavLink href="#furniture">furniture</NavLink>
-            <NavLink href="#automotive">automotive</NavLink>
-            <NavLink href="#groceries">groceries</NavLink>
-            <NavLink href="#tops">tops</NavLink>
-            <NavLink href="#mens-shoes">mens-shoes</NavLink>
-          </NavLinks>
+      <SidebarWrapper>
 
-          <PriceFilterContainer>
-            <Heading>Filter by Price</Heading>
-            <PriceFilter type='range' min="0" max="3000" step="100" name="priceFilter" id="priceFilter" value={fprice} onChange={check}></PriceFilter>
-            <div>
-              <label htmlFor="priceFilter">min 1$</label>
-              <label htmlFor="priceFilter">max 3000$</label>
-            </div>
-            {/* <button>Clear filter</button> */}
-            {/* <button onClick={viewToggler}>List/grid view</button> */}
-          </PriceFilterContainer>
+        <NavLinks>
+          <Heading>Categorie</Heading>
+          <NavLink href="#smartphones">smartphones</NavLink>
+          <NavLink href="#laptops">laptops</NavLink>
+          <NavLink href="#fragrances">fragrances</NavLink>
+          <NavLink href="#furniture">furniture</NavLink>
+          <NavLink href="#automotive">automotive</NavLink>
+          <NavLink href="#groceries">groceries</NavLink>
+          <NavLink href="#tops">tops</NavLink>
+          <NavLink href="#mens-shoes">mens-shoes</NavLink>
+        </NavLinks>
 
-        </SidebarWrapper>
-        <Container>
-            
-            <Banner></Banner>
-            <SearchedProducts heading={"Similar items in search"}></SearchedProducts>
-            <Products heading={"smartphones"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"laptops"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"fragrances"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"skincare"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"groceries"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"home-decoration"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"furniture"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"tops"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"womens-dresses"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"womens-shoes"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"mens-shirts"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"mens-shoes"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"mens-watches"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"womens-watches"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"womens-bags"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"womens-jewellery"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"sunglasses"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"automotive"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"motorcycle"} filterPrice={fprice}></Products>
-            <br />
-            <br />
-            <Products heading={"lighting"} filterPrice={fprice}></Products>
-            <br />
-            <br />  
+        <PriceFilterContainer>
+          <Heading>Filter by Price</Heading>
+          <PriceFilter type='range' min="0" max="3000" step="100" name="priceFilter" id="priceFilter" value={fprice} onChange={check}></PriceFilter>
+          <div>
+            <label htmlFor="priceFilter">min 1$</label>
+            <label htmlFor="priceFilter">max 3000$</label>
+          </div>
+          {/* <button>Clear filter</button> */}
+          {/* <button onClick={viewToggler}>List/grid view</button> */}
+        </PriceFilterContainer>
 
-        </Container>
+      </SidebarWrapper>
+      <Container>
+
+        <Banner></Banner>
+        <SearchedProducts heading={"Similar items in search"}></SearchedProducts>
+        <Products heading={"smartphones"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"laptops"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"fragrances"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"skincare"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"groceries"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"home-decoration"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"furniture"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"tops"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"womens-dresses"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"womens-shoes"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"mens-shirts"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"mens-shoes"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"mens-watches"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"womens-watches"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"womens-bags"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"womens-jewellery"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"sunglasses"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"automotive"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"motorcycle"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+        <Products heading={"lighting"} filterPrice={fprice}></Products>
+        <br />
+        <br />
+
+      </Container>
     </Wrapper>
   )
 }

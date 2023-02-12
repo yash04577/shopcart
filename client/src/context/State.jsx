@@ -10,6 +10,8 @@ const State = (props) => {
     const [singleProduct, setSingleProduct] = useState({});
     const[cartItems, setCartItems] = useState([]);
     const [cartItemsPrice, setCartItemsPrice] = useState(0);
+    const [user, setUser] = useState({});
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const[searchItem, setSearchItem] = useState([]);
 
@@ -116,12 +118,29 @@ const State = (props) => {
         return badgeCount;
     }
 
+
+    const getUser = () =>{
+        return user;
+    }
+
+    const updateUser = (userData) =>{
+        setUser(userData);
+    }
+
+    const getLoggedIn = () =>{
+        return loggedIn;
+    }
+
+    const updateLoggedIn = (val) =>{
+        setLoggedIn(val);
+    }
+
     useEffect(()=>{
         getData();
     })
 
   return (
-    <Context.Provider value={{getAllProduct, getSingleProduct, updateSingleProduct, getCartItem, updateCartItems, removeFromCart, getCartItemsPrice, getSearchItem, updateSearchItem, removePrice, getBadgeCount}}>
+    <Context.Provider value={{getAllProduct, getSingleProduct, updateSingleProduct, getCartItem, updateCartItems, removeFromCart, getCartItemsPrice, getSearchItem, updateSearchItem, removePrice, getBadgeCount, getUser, updateUser, getLoggedIn, updateLoggedIn}}>
         {props.children}
     </Context.Provider>
   )
