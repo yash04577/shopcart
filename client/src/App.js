@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import User from "./pages/User";
 
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/login" element={<Login></Login>} />
             <Route path="/about" element={<About></About>} />
             <Route path="/contact" element={<Contact></Contact>} />
+            <Route path="/user" element={<User></User>} />
         </Routes>
       </BrowserRouter>
       </State>

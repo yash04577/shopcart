@@ -95,8 +95,11 @@ const Navbar = () => {
 
     const searchClickHandler = async () => {
 
-        context.updateSearchItem(searchQuery);
         document.getElementById("searchItemsContainer").style.display = "flex";
+        await context.updateSearchItem(searchQuery);
+        console.log("before")
+        navigate("/");
+        console.log("before a")
         // useNavigate("")
 
     }
@@ -217,8 +220,8 @@ const Navbar = () => {
         try{
 
             if(context.getUser().name !== undefined){
-                console.log("if condition");
-                console.log("icon = ",  document.getElementById("logoutBtn"))
+                // console.log("if condition");
+                // console.log("icon = ",  document.getElementById("logoutBtn"))
                 document.getElementById("logoutBtn").style.display = "block";
                 document.getElementById("loginBtn").style.display = "none";
                 document.getElementById("username").style.display = "block";
@@ -226,8 +229,8 @@ const Navbar = () => {
             else{
                 document.getElementById("loginBtn").style.display = "block";
                 document.getElementById("logoutBtn").style.display = "none";
-                console.log("else condition");
-                console.log("icon = ",  document.getElementById("logoutBtn"))
+                // console.log("else condition");
+                // console.log("icon = ",  document.getElementById("logoutBtn"))
             }
         }
         
@@ -284,7 +287,7 @@ const Navbar = () => {
                                 <SearchOutlined onClick={() => searchClickHandler()} style={{ cursor: "pointer", position: "absolute", right: "0px", marginRight: "7px", top: "2px" }}></SearchOutlined>
                             </a>
                         </SerachInput>
-                        <h4 id='username'>{userName}</h4>
+                        <NavLink id='username' to="/user">{userName}</NavLink>
                         <NavLink to="/signup" id="loginBtn"><PersonOutlineOutlined /></NavLink>
                         <NavLink id="logoutBtn" onClick={logoutHandler}>Logout</NavLink>
                         {/* <NavLink to="/login"><PersonOutlineOutlined /></NavLink> */}

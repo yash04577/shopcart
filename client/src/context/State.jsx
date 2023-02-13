@@ -135,12 +135,17 @@ const State = (props) => {
         setLoggedIn(val);
     }
 
+    const refresCart = () =>{
+        setCartItems([]);
+        setCartItemsPrice(0);
+    }
+
     useEffect(()=>{
         getData();
     })
 
   return (
-    <Context.Provider value={{getAllProduct, getSingleProduct, updateSingleProduct, getCartItem, updateCartItems, removeFromCart, getCartItemsPrice, getSearchItem, updateSearchItem, removePrice, getBadgeCount, getUser, updateUser, getLoggedIn, updateLoggedIn}}>
+    <Context.Provider value={{getAllProduct, getSingleProduct, updateSingleProduct, getCartItem, updateCartItems, removeFromCart, getCartItemsPrice, getSearchItem, updateSearchItem, removePrice, getBadgeCount, getUser, updateUser, getLoggedIn, updateLoggedIn, refresCart}}>
         {props.children}
     </Context.Provider>
   )

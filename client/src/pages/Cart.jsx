@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Context from '../context/Context'
 import emptyCartImg from "../images/emptyCart.jpg"
 import emptyCartImg2 from "../images/4610092.avif"
+import { useNavigate, Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -243,7 +244,7 @@ const Cart = () => {
 
     const context = useContext(Context);
     const [promoCode, setPromoCode] = useState("");
-
+    const navigate = useNavigate();
 
 
     // let totalPrice = 0;
@@ -285,13 +286,80 @@ const Cart = () => {
 
     }
 
-    const checkoutHandler = () =>{
-        window.alert("Thanks for Shopping")
+    let id = "";
+
+    const manageOrder = async() =>{
+
+        const items = await context.getCartItem();
+        const myObj = Object.assign({}, items)
+        const res = await fetch('/updateorder', {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            
+            body: JSON.stringify({
+                
+                id: id,
+                payload: myObj
+            })
+            
+        })
+        
+        const responsee = await res.json();
+        console.log("res ", responsee);
+        
     }
+
+
+
+    const checkoutHandler = () => {
+       
+        console.log("let check")
+        
+        const authHandler = async () => {
+            
+            const res = await fetch('/auth', {
+                method: "post",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                
+                body: JSON.stringify({
+                    
+                    token: localStorage.getItem("jwt")
+                })
+                
+            })
+            
+            const response = await res.json();
+            
+            if(response.message === "login with token sucessfully"){
+                
+                id = response.user._id;
+                manageOrder();
+                window.alert("thanks for shopping")
+                context.refresCart();
+                navigate('/');
+            }
+            
+        }
+        authHandler();
+
+    }
+
+
+
+
+
+
+
+
 
 
     useEffect(() => {
         test();
+        // manageOrder();
     })
 
 

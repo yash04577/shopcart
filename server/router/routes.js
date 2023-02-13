@@ -153,4 +153,65 @@ router.post("/auth", async (req, res) => {
     }
 })
 
+
+
+
+
+
+
+
+router.post("/updateorder", async (req, res) => {
+    try {
+
+        console.log("updating order")
+        const {id} = req.body;
+        console.log(id)
+
+        if (!id) {
+            res.json("id is not present")
+        }
+
+        else {
+            
+            // const check = await jwt.verify(token, "thisiaasecretkeytoprotectthatstufffromheckers");
+            // console.log("check ", check);
+            // console.log("id = ", check.id)
+            // console.log("id2 ", String(check.id))
+            // console.log("t1 = ", typeof(check.id))
+            // console.log("t2 = ", typeof(String(check.id)))
+
+            const findUser = await USER.findOne({ _id: id });
+            console.log(findUser)
+            // checking wheather student is already present or not
+            if (findUser) {
+
+
+                
+                // findUser.addorder({price:"550", date:"13/2/23"});
+                // findUser.addorder({price:"230", name:"test"});
+                findUser.addorder(req.body.payload);
+                res.json({ message: "order updated sucessfully"});
+
+            }
+
+            else {
+
+                res.json("invalid id");
+            }
+        }
+
+    }
+    catch (err) {
+        console.log("error on finding user in order ", err)
+        res.statusCode = 400;
+    }
+})
+
+
+
+
+
+
+
+
 module.exports = router;
