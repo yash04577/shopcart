@@ -1,7 +1,9 @@
-import React,{useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Context from '../context/Context'
+import Footer from '../components/Footer'
+
 // import Orders from '../components/Orders'
 
 const Wrapper = styled.div`
@@ -57,6 +59,9 @@ const MenuContainer = styled.div`
         width: 100%;
 
         li{
+
+            cursor: pointer;
+
             a{
                 padding-left: 10px;
                 text-decoration: none;
@@ -77,17 +82,49 @@ const InfoContainer = styled.div`
     flex: 5;
     /* width: 100%; */
     height: 100%;
+    overflow: hidden;
     /* border: 5px solid green; */
+    /* background-color: ghostwhite; */
 `
 
 const OrderContainer = styled.div`
     /* border:5px solid black; */
     height: 90%;
     overflow-y: scroll;
+    display: none;
+`
+
+const UserDataContainer = styled.div`
+    /* border:5px solid black; */
+    height: 90%;
+    width: 95%;
+    background-color: ghostwhite;
+    /* display: none; */
+    /* overflow-y: scroll; */
+    
+    >div{
+        /* border:2px solid gainsboro; */
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: repeat(5, 70px);
+        font-size: large;
+        /* border: 2px solid black; */
+        
+        div{
+
+            /* border-collapse: collapse; */
+            border: 1px solid gray;
+            padding: 20px;
+        }
+
+    }
+    /* display: none; */
 `
 
 const Order = styled.div`
-    width: 100%;
+    width: 99%;
     height: 30%;
     /* border: 2px solid block; */
     /* background-color: black; */
@@ -116,87 +153,255 @@ const Order = styled.div`
     
 `
 
+const ItemContainer = styled.div`
+    display: none;
+    height: 90%;
+    overflow-y: scroll;
+`
+
+const Item = styled.div`
+    border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+    display: flex;
+    margin-bottom: 10px;
+    padding: 15px;
+
+    &:hover{
+        /* background-color: #5de7e7; */
+        background-color: #9ca1a1;
+        /* background-color: gainsboro; */
+    }
+`
+
+
+const ImageContainer = styled.div`
+    width: 100px;
+    height: 75px;
+    /* border: 2px solid black; */
+    margin-left: 20px;
+`
+
+const Image = styled.img`
+    width: 100%;
+    height: 100%;
+`
+const ItemNameContainer = styled.div`
+    /* border: 2px solid rebeccapurple; */
+    display: flex;
+    align-items: center;
+    flex: 3;
+`
+
+const ItemName = styled.h4`
+    padding-left: 20px;
+`
+
+const CountContainer = styled.div`
+    flex: 1;
+    /* border: 2px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+
+    button{
+        width: 30px;
+        height: 25px;
+        background: transparent;
+        border: none;
+        font-size: large;
+        cursor:pointer;
+
+        &:hover{
+            transform: scale(1.2);
+        }
+
+        &:active{
+            color:rebeccapurple;
+        }
+    }
+`
+
+const PriceContainer = styled.div`
+    flex: 2;
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+`
+
+
 const User = () => {
 
+    const navigate = useNavigate();
     const context = useContext(Context);
     const [user, setUser] = useState({
-        _id:"3876867",
-        name:"user",
-        email:"user email",
-        number:"97979",
-        address:"iuyiuyiuyi",
-        createdAt:"787897",
-        orders:[]
+        _id: "3876867",
+        name: "user",
+        email: "user email",
+        number: "97979",
+        address: "iuyiuyiuyi",
+        createdAt: "787897",
+        orders: []
     });
 
-    const getData = async() =>{
+    const [singleOrder, setSingleOrder] = useState([]);
+
+    const getData = async () => {
         setUser(context.getUser());
         // console.log("user ", user)
     }
 
-    useEffect(()=>{
+
+    const showProfileHandler = () => {
+        document.getElementById("userDataContainer").style.display = "block";
+        document.getElementById("oderContainer").style.display = "none";
+        document.getElementById("order-text").innerHTML = "Profile";
+        
+    }
+    
+    const showOrderHandler = () => {
+        
+        document.getElementById("userDataContainer").style.display = "none";
+        document.getElementById("oderContainer").style.display = "block";
+        document.getElementById("order-text").innerHTML = "Order";
+        
+        
+    }
+    
+    
+    const goHome = () => {
+        navigate("/")
+    }
+    
+    const goContact = () => {
+        navigate("/contact");
+    }
+
+
+    
+    const showOrderDetails = (elem) => {
+        // setSingleOrder(elem);
+        console.log("order ", elem)
+        setSingleOrder([])
+        
+        for (let key in elem) {
+            // console.log(elem[key]);
+            setSingleOrder(singleOrder=>[...singleOrder, elem[key]])
+        }
+        
+        document.getElementById("userDataContainer").style.display = "none";
+        document.getElementById("oderContainer").style.display = "none";
+        document.getElementById("itemContainerUser").style.display = "block";
+        document.getElementById("order-text").innerHTML = "Order Details";
+
+        // console.log("arr", Array.from(elem))
+    }
+
+
+
+
+
+    useEffect(() => {
         getData();
     })
 
     return (
-        <Wrapper>
-            <UserHeading>
-                <h1>{user.name}</h1>
-                <p>{user.address}</p>
-            </UserHeading>
-            <Container>
-                <MenuContainer>
-                    <ul>
-                        <li>
-                            <Link to="#">Profile</Link>
-                        </li>
-                        <li>
-                            <Link to="#">Order</Link>
-                        </li>
-                        <li>
-                            <Link to="#">Payment</Link>
-                        </li>
-                        <li>
-                            <Link to="#">Whishlist</Link>
-                        </li>
-                    </ul>
-                </MenuContainer>
-                <InfoContainer>
-                    <h2 style={{margin:"10px"}}>Orders</h2>
-                    <OrderContainer>
+        <>
+            <Wrapper>
+                <UserHeading>
+                    <h1>{user.name}</h1>
+                    <p>{user.address}</p>
+                </UserHeading>
+                <Container>
+                    <MenuContainer>
+                        <ul>
+                            <li onClick={showProfileHandler}>
+                                <Link to="#" >Profile</Link>
+                            </li>
+                            <li onClick={showOrderHandler}>
+                                <Link to="#" >Order</Link>
+                            </li>
+                            <li onClick={goHome}>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li onClick={goContact}>
+                                <Link to="/">Contact</Link>
+                            </li>
+                        </ul>
+                    </MenuContainer>
+                    <InfoContainer>
+                        <h2 style={{ margin: "10px" }} id="order-text">Profile</h2>
+                        <OrderContainer id="oderContainer">
 
-                        {
-                            user.orders.map((elem, index)=>{
-                                return(
-                                    <Order>
-                                        <h2>order {index}</h2>
-                                        <Link to="#">view order</Link>
-                                        <p>Shipped on {user.createdAt}</p>
-                                    </Order>
-                                )
-                            })
-                        }
+                            {
+                                user.orders.map((elem, index) => {
+                                    return (
+                                        <Order onClick={()=>showOrderDetails(elem)}>
+                                            <h2>order {index}</h2>
+                                            <Link to="#">view order</Link>
+                                            <p>Shipped on {user.createdAt}</p>
+                                        </Order>
+                                    )
+                                })
+                            }
+                        </OrderContainer>
+                        <UserDataContainer id="userDataContainer">
+                            <div>
+                                <div>name</div>
+                                <div>{user.name}</div>
 
-                        
-                        {/* <Order>
-                            <h2>order 123232</h2>
-                            <Link to="#">view order</Link>
-                            <p>Shipped on 23/2/2023</p>
-                        </Order>
-                        <Order>
-                            <h2>order 123232</h2>
-                            <Link to="#">view order</Link>
-                            <p>Shipped on 23/2/2023</p>
-                        </Order>
-                        <Order>
-                            <h2>order 123232</h2>
-                            <Link to="#">view order</Link>
-                            <p>Shipped on 23/2/2023</p>
-                        </Order> */}
-                    </OrderContainer>
-                </InfoContainer>
-            </Container>
-        </Wrapper>
+
+                                <div>Email</div>
+                                <div>{user.email}</div>
+
+
+                                <div>Phone Number</div>
+                                <div>{user.number}</div>
+
+
+                                <div>Address</div>
+                                <div>{user.address}</div>
+
+
+                                <div>User ID</div>
+                                <div>{user._id}</div>
+
+
+                            </div>
+                        </UserDataContainer>
+                        <ItemContainer id="itemContainerUser">
+                            {
+
+                                
+                                singleOrder.map((item, index) => {
+
+                                    return (
+
+                                        <Item key={index}>
+                                            <ImageContainer>
+                                                <Image src={item.thumbnail}></Image>
+                                            </ImageContainer>
+                                            <ItemNameContainer>
+                                                <ItemName>{item.title}</ItemName>
+                                            </ItemNameContainer>
+                                            <CountContainer>
+                                                {item.quantity}
+                                            </CountContainer>
+                                            <PriceContainer>{item.price}$</PriceContainer>
+                                        </Item>
+                                    )
+                                })
+                            }
+                        </ItemContainer>
+                    </InfoContainer>
+                </Container>
+            </Wrapper>
+            <br />
+            <br />
+            <Footer></Footer>
+        </>
     )
 }
 

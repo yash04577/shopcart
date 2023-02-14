@@ -97,10 +97,8 @@ const Navbar = () => {
 
         document.getElementById("searchItemsContainer").style.display = "flex";
         await context.updateSearchItem(searchQuery);
-        console.log("before")
         navigate("/");
-        console.log("before a")
-        // useNavigate("")
+       
 
     }
 
@@ -253,6 +251,7 @@ const Navbar = () => {
 
     const logoutHandler = () =>{
         localStorage.clear("jwt");
+        navigate("/");
         window.location.reload(true)
     }
 
