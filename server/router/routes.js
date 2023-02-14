@@ -72,10 +72,9 @@ router.post("/signin", async (req, res) => {
 
                     const token = await findUser.generateToken();
                     // const test = await localStorage.setItem("jwt", token);
-                    console.log("token ", token)
-
+                    
                     const check = await jwt.verify(token, "thisiaasecretkeytoprotectthatstufffromheckers");
-                    console.log("checking ", check)
+                    
 
                     res.json({ message: "login sucessfull", token: token });
                 }
@@ -115,26 +114,10 @@ router.post("/auth", async (req, res) => {
         else {
             
             const check = await jwt.verify(token, "thisiaasecretkeytoprotectthatstufffromheckers");
-            console.log("check ", check);
-            console.log("id = ", check.id)
-            console.log("id2 ", String(check.id))
-            console.log("t1 = ", typeof(check.id))
-            console.log("t2 = ", typeof(String(check.id)))
 
             const findUser = await USER.findOne({ _id: check.id });
-            console.log(findUser)
             // checking wheather student is already present or not
             if (findUser) {
-
-
-                // res.statusCode = 200;
-
-                // const token = await findUser.generateToken();
-                // const test = await localStorage.setItem("jwt", token);
-                // console.log("token ", token)
-
-                // const check = await jwt.verify(token, "thisiaasecretkeytoprotectthatstufffromheckers");
-                // console.log("checking ", check)
                 
                 res.json({ message: "login with token sucessfully", user:findUser});
 
@@ -173,22 +156,10 @@ router.post("/updateorder", async (req, res) => {
 
         else {
             
-            // const check = await jwt.verify(token, "thisiaasecretkeytoprotectthatstufffromheckers");
-            // console.log("check ", check);
-            // console.log("id = ", check.id)
-            // console.log("id2 ", String(check.id))
-            // console.log("t1 = ", typeof(check.id))
-            // console.log("t2 = ", typeof(String(check.id)))
-
             const findUser = await USER.findOne({ _id: id });
-            console.log(findUser)
             // checking wheather student is already present or not
             if (findUser) {
 
-
-                
-                // findUser.addorder({price:"550", date:"13/2/23"});
-                // findUser.addorder({price:"230", name:"test"});
                 findUser.addorder(req.body.payload);
                 res.json({ message: "order updated sucessfully"});
 
