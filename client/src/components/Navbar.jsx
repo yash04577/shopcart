@@ -174,52 +174,11 @@ const Navbar = () => {
 
 
 
-    const authHandler = async () => {
-        // e.preventDefault();
-
-        try {
-
-            const res = await fetch('/auth', {
-                method: "post",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-                body: JSON.stringify({
-
-                    token: localStorage.getItem("jwt")
-                })
-
-            })
-
-            const response = await res.json();
-            context.updateUser(response.user);
-            // window.alert(response.message);
-
-            // setUser({name:response.user.name, email:response.user.email, number:response.user.number, address:response.user.address})
-            
-            console.log("test res ", response.message)
-            if (response.message === "login with token sucessfully") {
-                // console.log(document.getElementById("username"))
-                context.updateLoggedIn(true);
-            }
-        }
-
-        catch (err) {
-
-            context.updateLoggedIn(true);
-            
-        }
-
-    }   
-
-
     const hidden = () =>{
         try{
 
             if(context.getUser().name !== undefined){
-                // console.log("if condition");
-                // console.log("icon = ",  document.getElementById("logoutBtn"))
+               
                 document.getElementById("logoutBtn").style.display = "block";
                 document.getElementById("loginBtn").style.display = "none";
                 document.getElementById("username").style.display = "block";
@@ -227,8 +186,6 @@ const Navbar = () => {
             else{
                 document.getElementById("loginBtn").style.display = "block";
                 document.getElementById("logoutBtn").style.display = "none";
-                // console.log("else condition");
-                // console.log("icon = ",  document.getElementById("logoutBtn"))
             }
         }
         
@@ -257,7 +214,6 @@ const Navbar = () => {
 
     useEffect(() => {
         
-        // console.log("un = ", context.getUser().name)
         setUName();
         hidden();
        

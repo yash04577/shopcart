@@ -71,25 +71,6 @@ const Button = styled.button`
     }
 `
 
-const ShowMoreButton = styled.div`
-    width: 130px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border-radius: 12px;
-    border: 1.5px solid black;
-    margin-left: 15px;
-    margin-top: 15px;
-    background-color: #ffd17b;
-    border: none;
-
-    &:active{
-        box-shadow: 0 0 6px red;
-    }
-`
-
 const ListViewContainer = styled.div`
     /* display: flex; */
     flex: 1;

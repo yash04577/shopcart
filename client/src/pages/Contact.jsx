@@ -98,10 +98,8 @@ const Contact = () => {
   const [user, setUser] = useState({name:"", email:"", number:"", address:""})
   
   const authHandler = async () => {
-    // e.preventDefault();
-
-
-    const res = await fetch('/auth', {
+   
+    const res = await fetch('https://api-shopcart.onrender.com/auth', {
       method: "post",
       headers: {
         'Content-Type': 'application/json'
@@ -115,17 +113,8 @@ const Contact = () => {
     })
 
     const response = await res.json();
-    // window.alert(response.message);
     
     setUser({name:response.user.name, email:response.user.email, number:response.user.number, address:response.user.address})
-
-    // if(response.message === "login sucessfull"){
-
-    //   localStorage.setItem("jwt", response.token)
-
-    //   console.log("inside redirected condition")
-    //   navigate('/');
-    // }
 
   }
 

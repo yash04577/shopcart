@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect} from 'react'
 import styled from 'styled-components'
-import Context from '../context/Context'
 import ProductCard from './ProductCard'
 import axios from 'axios';
 
@@ -8,14 +7,12 @@ const Wrapper = styled.div`
     width: 100%;
     display: flex;
     flex-flow: column;
-    
-    /* border: 2px solid gold; */
+   
 `
 
 const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-around; */
     @media (max-width: 400px){
       justify-content: center;
     }
@@ -44,9 +41,7 @@ const Products = (props) => {
     setProducts(data.products);
 
   }
-  const context = useContext(Context);
-
-
+ 
   useEffect(() => {
     getproducts();
   }, [])

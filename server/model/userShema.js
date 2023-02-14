@@ -47,7 +47,6 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateToken = async function(){
     
     const token = await jwt.sign({id:this._id}, "thisiaasecretkeytoprotectthatstufffromheckers");
-    // console.log("schem ", token)
     return token;
 }
 
@@ -57,8 +56,6 @@ userSchema.methods.addorder = async function(order){
 
         this.orders = this.orders.concat(order)
         await this.save();
-        console.log("done ", order)
-
     }
 
     catch(err){
@@ -72,7 +69,6 @@ userSchema.pre('save', async function (next) {
 
     if(this.isModified("password")){
         this.password = await bcrypt.hash(this.password, 12);
-        console.log("pre method")
     }
 
    

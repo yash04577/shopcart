@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Context from '../context/Context'
 import emptyCartImg from "../images/emptyCart.jpg"
-import emptyCartImg2 from "../images/4610092.avif"
 import { useNavigate, Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
@@ -292,7 +291,8 @@ const Cart = () => {
 
         const items = await context.getCartItem();
         const myObj = Object.assign({}, items)
-        const res = await fetch('/updateorder', {
+        // const res = await fetch('/updateorder', {
+        const res = await fetch('https://api-shopcart.onrender.com/updateorder', {
             method: "post",
             headers: {
                 'Content-Type': 'application/json'
@@ -307,19 +307,18 @@ const Cart = () => {
         })
         
         const responsee = await res.json();
-        console.log("res ", responsee);
+        // console.log("res ", responsee);
         
     }
 
 
 
     const checkoutHandler = () => {
-       
-        console.log("let check")
         
         const authHandler = async () => {
             
-            const res = await fetch('/auth', {
+            // const res = await fetch('/auth', {
+            const res = await fetch('https://api-shopcart.onrender.com/auth', {
                 method: "post",
                 headers: {
                     'Content-Type': 'application/json'
@@ -347,12 +346,6 @@ const Cart = () => {
         authHandler();
 
     }
-
-
-
-
-
-
 
 
 

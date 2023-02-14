@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const routes = require("../router/routes")
 const PORT = process.env.PORT || 8000 
-const USER = require("../model/userShema")
 require("../DB/database")
 app.use(json())
 

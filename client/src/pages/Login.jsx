@@ -11,8 +11,7 @@ const Login = () => {
   const clickHandler = async (e) => {
     e.preventDefault();
 
-
-    const res = await fetch('/signin', {
+    const res = await fetch('https://api-shopcart.onrender.com/signin', {
       method: "post",
       headers: {
         'Content-Type': 'application/json'
@@ -28,14 +27,18 @@ const Login = () => {
     })
 
     const response = await res.json();
-    window.alert(response);
+    
+    // console.log(response.message)
 
     if(response.message === "login sucessfull"){
-
+      window.alert(response.message);
       localStorage.setItem("jwt", response.token)
-
-      console.log("inside redirected condition")
       navigate('/');
+    }
+    
+    else{
+      window.alert(response);
+
     }
 
   }
@@ -46,7 +49,7 @@ const Login = () => {
   let val;
 
   const changeHandler = (e) => {
-    console.log(e.target.name)
+    
     name = e.target.name;
     val = e.target.value;
 

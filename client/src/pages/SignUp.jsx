@@ -30,59 +30,21 @@ const SignUp = () => {
         
         }
 
-        axios.post(`http://localhost:8000/signup`, JSON.stringify(data),
+        axios.post(`https://api-shopcart.onrender.com/signup`, JSON.stringify(data),
         { headers: { 'Content-Type': 'application/json' } })
         .then(res => {
-          window.alert(res.data.message)
-
+        
         if(res.data.message === "registered sucessfully"){
-
+            
+            window.alert(res.data.message)
             navigate("/login")
         }
-          console.log(res.data);
+        
+        else{
+            window.alert(res.data)
+
+        }
       })
-    }
-
-
-
-   
-    const afterSubmission = async (e) =>{
-        e.preventDefault();
-        console.log(user); 
-        
-        const {name,email, phone, work,password,cpassword} = user;
-        
-        const res = await fetch('/register',{
-            method: "post",
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-
-            body:JSON.stringify({
-                
-                naame: name,
-                email : email,
-                phone : phone,
-                work : work,
-                password : password,
-                cpassword : cpassword
-                    
-            })
-        })
-
-        console.log("waiting.....up")
-        // const data = await res.json();
-        console.log("waiting.....")
-        navigate('/login')
-        // if(data.status === 422 || !data){
-        //     console.log(data)
-        //     window.alert("failed");
-        // }
-
-        // else{
-        //     console.log(data)
-        //     window.alert("succesfull");
-        // }
     }
 
 
@@ -91,12 +53,10 @@ const SignUp = () => {
     let val;
 
     const handleInputs = (e) => {
-        // console.log(e);
         Name = e.target.name;
         val = e.target.value;
         setUser({...user, [Name]:val});
-        // console.log(user)
-        
+    
     }
 
     return (

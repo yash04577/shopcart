@@ -6,9 +6,7 @@ import Context from '../context/Context'
 const Wrapper = styled.div`
     width: 100%;
     height: 80vh; 
-     /* border: 2ppx solid rebeccapurple; */
      margin-top: 20px;
-    /* background-color: red; */
 `
 
 const Container = styled.div`
@@ -16,7 +14,6 @@ const Container = styled.div`
     width: 95%;
     height: 100%;
     margin: 0 auto;
-    /* border: 2px solid red; */
     box-shadow: 0 0 4px 2px;
 `
 
@@ -28,16 +25,14 @@ const ImageContainer = styled.div`
     justify-content: flex-start;
     margin: 0 auto;
     flex-flow: column;
-    /* border: 2px solid rebeccapurple; */
+   
 `
 
 const MainImg = styled.div`
     width: 90%;
     height: 60%;
     margin-top: 30px;
-    /* display: flex; */
-    /* align-items: flex-start; */
-    /* border: 2px solid black; */
+  
 `
 const Image = styled.img`
     width: 100%;
@@ -49,7 +44,6 @@ const MiniImageContainer = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* border: 2px solid; */
     margin-top: 20px;
     width: 90%;
     height: 30%;
@@ -60,7 +54,6 @@ const InformationContainer = styled.div`
     flex: 1;
     height: 100%;
     margin: 0 auto;
-    /* border: 2px solid green; */
     overflow-y: auto;
     box-shadow: 0 0 4px 2px;
 `
@@ -71,7 +64,6 @@ const Title = styled.h1`
 `
 
 const Description = styled.div`
-    /* color: gray; */
     padding: 20px;
     margin: 20px;
     background-color: teal;
@@ -87,7 +79,6 @@ const Price = styled.h2`
 const ButtonContainer = styled.div`
     display: flex;
     padding: 20px;
-    /* border: 2px solid black; */
     gap: 30px;
 `
 
@@ -159,18 +150,9 @@ const SinglePage = () => {
         <Container>
             <ImageContainer>
                 <MainImg>
-                    {/* <Image src={product.thumbnail}></Image>  */}
-                    {/* {setMainImageUrl(product.thumbnail)} */}
                     <Image src={mainImagUrl || product.images[0]}></Image> 
                 </MainImg>
                 <MiniImageContainer>
-                    {/* <input type="radio" name="a" id="1" class="input-hidden" />
-                    <label htmlFor="1"><img src={product.images[0]} alt="" width={"120px"}/></label>
-                    <input type="radio" name="a" id="2" class="input-hidden" />
-                    <label htmlFor="2"><img src={product.images[1]} alt="" width={"120px"}/></label>
-                    <input type="radio" name="a" id="3" class="input-hidden"/>
-                    <label htmlFor="3"><img src={product.images[2]} alt="" width={"120px"}/></label> */}
-
                     <button>
                         <img src={product.images[0]}  width={"120px"} height={"90px"} onClick={()=>setMainImageUrl(product.images[0])}/>
                     </button>
@@ -180,7 +162,6 @@ const SinglePage = () => {
                     <button>
                         <img src={product.images[2]} alt="" srcset="" width={"120px"} height={"90px"} onClick={()=>setMainImageUrl(product.images[2])}/>
                     </button>
-                   
                 </MiniImageContainer>
             </ImageContainer>
             <InformationContainer>

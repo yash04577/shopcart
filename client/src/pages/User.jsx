@@ -4,18 +4,15 @@ import { Link, useNavigate } from "react-router-dom"
 import Context from '../context/Context'
 import Footer from '../components/Footer'
 
-// import Orders from '../components/Orders'
-
 const Wrapper = styled.div`
     width: 100vw;
     height: 90vh;
-    /* border: 2px solid red; */
+    
 `
 
 const UserHeading = styled.div`
     width: 100%;
     height: 30%;
-    /* border: 2px solid black; */
     background-color: #3c406a;
     color: white;
 
@@ -31,7 +28,6 @@ const UserHeading = styled.div`
 const Container = styled.div`
     width: 100%;
     height: 70%;
-    /* border: 2px solid rebeccapurple; */
     display: flex;
 `
 
@@ -39,16 +35,13 @@ const MenuContainer = styled.div`
     box-sizing: border-box;
     flex: 1;
     height: 50%;
-    /* padding: 50px; */
     margin: 50px;
-    /* border: 2px solid red; */
     background-color: #dcdcdc;
     display: flex;
     flex-direction: column;
     display: flex;
     justify-content: space-around;
     align-items: baseline;
-    /* padding-left: 10px; */
 
     ul{
        list-style: none;
@@ -80,54 +73,44 @@ const MenuContainer = styled.div`
 
 const InfoContainer = styled.div`
     flex: 5;
-    /* width: 100%; */
     height: 100%;
     overflow: hidden;
-    /* border: 5px solid green; */
-    /* background-color: ghostwhite; */
 `
 
 const OrderContainer = styled.div`
-    /* border:5px solid black; */
+   
     height: 90%;
     overflow-y: scroll;
     display: none;
 `
 
 const UserDataContainer = styled.div`
-    /* border:5px solid black; */
     height: 90%;
     width: 95%;
     background-color: ghostwhite;
-    /* display: none; */
-    /* overflow-y: scroll; */
     
     >div{
-        /* border:2px solid gainsboro; */
+        
         width: 100%;
         height: 100%;
         display: grid;
         grid-template-columns: 1fr 2fr;
         grid-template-rows: repeat(5, 70px);
         font-size: large;
-        /* border: 2px solid black; */
         
         div{
 
-            /* border-collapse: collapse; */
             border: 1px solid gray;
             padding: 20px;
         }
 
     }
-    /* display: none; */
+    
 `
 
 const Order = styled.div`
     width: 99%;
     height: 30%;
-    /* border: 2px solid block; */
-    /* background-color: black; */
     border: 2px solid gainsboro;
     color: white;
     position: relative;
@@ -167,9 +150,7 @@ const Item = styled.div`
     padding: 15px;
 
     &:hover{
-        /* background-color: #5de7e7; */
         background-color: #9ca1a1;
-        /* background-color: gainsboro; */
     }
 `
 
@@ -177,7 +158,6 @@ const Item = styled.div`
 const ImageContainer = styled.div`
     width: 100px;
     height: 75px;
-    /* border: 2px solid black; */
     margin-left: 20px;
 `
 
@@ -186,7 +166,6 @@ const Image = styled.img`
     height: 100%;
 `
 const ItemNameContainer = styled.div`
-    /* border: 2px solid rebeccapurple; */
     display: flex;
     align-items: center;
     flex: 3;
@@ -198,7 +177,6 @@ const ItemName = styled.h4`
 
 const CountContainer = styled.div`
     flex: 1;
-    /* border: 2px solid black; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -250,7 +228,6 @@ const User = () => {
 
     const getData = async () => {
         setUser(context.getUser());
-        // console.log("user ", user)
     }
 
 
@@ -296,11 +273,7 @@ const User = () => {
         document.getElementById("itemContainerUser").style.display = "block";
         document.getElementById("order-text").innerHTML = "Order Details";
 
-        // console.log("arr", Array.from(elem))
     }
-
-
-
 
 
     useEffect(() => {

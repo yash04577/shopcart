@@ -15,7 +15,6 @@ router.post("/signup", async (req, res) => {
 
     try {
 
-        // console.log(req.body)
         const { name, email, number, address, password } = req.body;
 
         if (!name || !email || !number || !address || !password) {
@@ -71,8 +70,6 @@ router.post("/signin", async (req, res) => {
                     res.statusCode = 200;
 
                     const token = await findUser.generateToken();
-                    // const test = await localStorage.setItem("jwt", token);
-                    
                     const check = await jwt.verify(token, "thisiaasecretkeytoprotectthatstufffromheckers");
                     
 
@@ -138,11 +135,6 @@ router.post("/auth", async (req, res) => {
 
 
 
-
-
-
-
-
 router.post("/updateorder", async (req, res) => {
     try {
 
@@ -177,12 +169,6 @@ router.post("/updateorder", async (req, res) => {
         res.statusCode = 400;
     }
 })
-
-
-
-
-
-
 
 
 module.exports = router;
