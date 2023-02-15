@@ -141,7 +141,7 @@ const SinglePage = () => {
     useEffect(() => {
 
         setProduct(context.getSingleProduct());
-    })
+    },[])
     
    
 

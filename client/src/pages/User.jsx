@@ -259,12 +259,10 @@ const User = () => {
 
     
     const showOrderDetails = (elem) => {
-        // setSingleOrder(elem);
-        console.log("order ", elem)
+        
         setSingleOrder([])
         
         for (let key in elem) {
-            // console.log(elem[key]);
             setSingleOrder(singleOrder=>[...singleOrder, elem[key]])
         }
         

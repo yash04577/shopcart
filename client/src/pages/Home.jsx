@@ -99,10 +99,6 @@ const PriceFilterContainer = styled.div`
   
 `
 
-const PriceFilter = styled.input`
-  
-`
-
 
 const Home = () => {
 
@@ -176,7 +172,7 @@ const Home = () => {
 
         <PriceFilterContainer>
           <Heading>Filter by Price</Heading>
-          <PriceFilter type='range' min="0" max="3000" step="100" name="priceFilter" id="priceFilter" value={fprice} onChange={check}></PriceFilter>
+          <input type='range' min="0" max="3000" step="100" name="priceFilter" id="priceFilter" value={fprice} onChange={check}></input>
           <div>
             <label htmlFor="priceFilter">min 1$</label>
             <label htmlFor="priceFilter">max 3000$</label>

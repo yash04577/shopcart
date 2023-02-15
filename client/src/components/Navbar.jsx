@@ -7,9 +7,7 @@ import { SearchOutlined } from '@material-ui/icons'
 import { Badge } from '@material-ui/core'
 import Context from '../context/Context'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { HashScroll } from "react-hash-scroll";
-// import { Badge } from '@material-ui/icons'
+
 
 const Wrapper = styled.div`
     width: 100%;
@@ -98,7 +96,6 @@ const Navbar = () => {
         document.getElementById("searchItemsContainer").style.display = "flex";
         await context.updateSearchItem(searchQuery);
         navigate("/");
-       
 
     }
 
@@ -201,7 +198,7 @@ const Navbar = () => {
 
         }
         catch(e){
-            // console.log(e);
+            
         }
     }
 
@@ -245,8 +242,6 @@ const Navbar = () => {
                         <NavLink id='username' to="/user">{userName}</NavLink>
                         <NavLink to="/signup" id="loginBtn"><PersonOutlineOutlined /></NavLink>
                         <NavLink id="logoutBtn" onClick={logoutHandler}>Logout</NavLink>
-                        {/* <NavLink to="/login"><PersonOutlineOutlined /></NavLink> */}
-                        {/* <Badge badgeContent={context.getCartItem().length} color="primary" style={{ marginRight: "20px" }}> */}
                         <Badge badgeContent={context.getBadgeCount()} color="primary" style={{ marginRight: "20px" }}>
                             <NavLink to="/cart"><ShoppingCartOutlined /></NavLink>
                         </Badge>

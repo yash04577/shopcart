@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     width: 100vw;
     height: 90vh;
     overflow: hidden;
-    /* border: 2px solid red; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,25 +17,22 @@ const Wrapper = styled.div`
 const Container = styled.div`
     width: 90%;
     height: 90%;
-    /* border: 2px solid black; */
     display: flex;
     box-shadow: 0 0 5px gray;
 `
 
 const CartContainer = styled.div`
-    /* border: 2px solid red; */
+  
     flex: 2;
     overflow: auto;
     background-color: #fff;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
-    /* border: 3px solid rebeccapurple; */
     position: relative;
    
 `
 
 const SummaryContainer = styled.div`
-    /* border: 2px solid black; */
     flex: 1;
 `
 
@@ -56,16 +52,14 @@ const Item = styled.div`
     padding: 15px;
 
     &:hover{
-        /* background-color: #5de7e7; */
+        
         background-color: #9ca1a1;
-        /* background-color: gainsboro; */
     }
 `
 
 const ImageContainer = styled.div`
     width: 100px;
     height: 75px;
-    /* border: 2px solid black; */
     margin-left: 20px;
 `
 
@@ -74,7 +68,7 @@ const Image = styled.img`
     height: 100%;
 `
 const ItemNameContainer = styled.div`
-    /* border: 2px solid rebeccapurple; */
+    
     display: flex;
     align-items: center;
     flex: 3;
@@ -86,7 +80,6 @@ const ItemName = styled.h4`
 
 const CountContainer = styled.div`
     flex: 1;
-    /* border: 2px solid black; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,7 +105,6 @@ const CountContainer = styled.div`
 
 const PriceContainer = styled.div`
     flex: 2;
-    /* border: 2px solid green; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -124,26 +116,25 @@ const RemoveBtnContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex: 0.5;
-`
 
-const RemoveBtn = styled.button`
-    padding: 25px 20px;
-    background-color: transparent;
-    font-size: large;
-    border: none;
-    &:hover{
-        background-color: red;
-        color: white;
+    button{
+        padding: 25px 20px;
+        background-color: transparent;
+        font-size: large;
+        border: none;
+        &:hover{
+            background-color: red;
+            color: white;
+        }
     }
 `
+
 
 const SummaryTitle = styled.h1`
     padding: 20px;
 `
 
 const ItemsCountContainer = styled.div`
-    display: flex;
-    /* border: 2px solid red; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -170,20 +161,20 @@ const ShippingPrice = styled.h3`
 const DiscountContainer = styled.div`
     display: flex;
     flex-flow: column;
-    /* border: 2px solid black; */
+    
+    h3{
+        padding: 20px;
+    }
+
+    input{
+        padding: 0 20px;
+        width: 90%;
+        height: 40px;
+        align-self: center;
+        font-size: large;
+    }
 `
 
-const DiscountHeading = styled.h3`
-    padding: 20px;
-`
-
-const DiscountInput = styled.input`
-    padding: 0 20px;
-    width: 90%;
-    height: 40px;
-    align-self: center;
-    font-size: large;
-`
 
 const TotalContainer = styled.div`
     display: flex;
@@ -203,28 +194,25 @@ const TotalPrice = styled.h3`
 const CheckoutContainer = styled.div`
     display: flex;
     justify-content: center;
-`
 
-const CheckOutBtn = styled.button`
-    background-color: black;
-    color: white;
-    width: 90%;
-    height: 50px;
-    font-size: larger;
-    border: none;
 
-    &:hover{
-        /* background-color: #1a1717;  */
-        /* transition: all 300ms; */
-        background-color: teal; 
+    button{
+        background-color: black;
+        color: white;
+        width: 90%;
+        height: 50px;
+        font-size: larger;
+        border: none;
+
+        &:hover{
+            background-color: teal; 
+        }
     }
-
 `
 
 const BgContainer = styled.div.attrs({
     id: "cartBgContainer"
 })`
-    /* border: 2px solid red; */
     position: absolute;;
     top: 0;
     left: 0;
@@ -287,7 +275,7 @@ const Cart = () => {
 
     let id = "";
 
-    const manageOrder = async() =>{
+    const manageOrder = async () => {
 
         const items = await context.getCartItem();
         const myObj = Object.assign({}, items)
@@ -297,51 +285,50 @@ const Cart = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            
+
             body: JSON.stringify({
-                
+
                 id: id,
                 payload: myObj
             })
-            
+
         })
-        
+
         const responsee = await res.json();
         // console.log("res ", responsee);
-        
+
     }
 
 
 
     const checkoutHandler = () => {
-        
+
         const authHandler = async () => {
-            
-            // const res = await fetch('/auth', {
+
             const res = await fetch('https://api-shopcart.onrender.com/auth', {
                 method: "post",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                
+
                 body: JSON.stringify({
-                    
+
                     token: localStorage.getItem("jwt")
                 })
-                
+
             })
-            
+
             const response = await res.json();
-            
-            if(response.message === "login with token sucessfully"){
-                
+
+            if (response.message === "login with token sucessfully") {
+
                 id = response.user._id;
                 manageOrder();
                 window.alert("thanks for shopping")
                 context.refresCart();
                 navigate('/');
             }
-            
+
         }
         authHandler();
 
@@ -352,7 +339,6 @@ const Cart = () => {
 
     useEffect(() => {
         test();
-        // manageOrder();
     })
 
 
@@ -384,7 +370,7 @@ const Cart = () => {
                                     </CountContainer>
                                     <PriceContainer>{item.price}$</PriceContainer>
                                     <RemoveBtnContainer>
-                                        <RemoveBtn onClick={() => removeHandler(item)}>X</RemoveBtn>
+                                        <button onClick={() => removeHandler(item)}>X</button>
                                     </RemoveBtnContainer>
                                 </Item>
                             )
@@ -403,8 +389,8 @@ const Cart = () => {
                         <ShippingPrice>Standard-Delivery 5$</ShippingPrice>
                     </ShippingContainer>
                     <DiscountContainer>
-                        <DiscountHeading >PROMO CODE</DiscountHeading>
-                        <DiscountInput placeholder="Enter Your Code Here" value={promoCode} id="promo" onChange={promoChangeHandler}></DiscountInput>
+                        <h3 >PROMO CODE</h3>
+                        <input placeholder="Enter Your Code Here" value={promoCode} id="promo" onChange={promoChangeHandler}></input>
                     </DiscountContainer>
                     <br />
                     <br />
@@ -412,10 +398,9 @@ const Cart = () => {
                     <TotalContainer>
                         <TotalHeading>TOTAL PRICE</TotalHeading>
                         <TotalPrice>{context.getCartItemsPrice() + 5}$</TotalPrice>
-                        {/* <TotalPrice>{checkPrice()}$</TotalPrice> */}
                     </TotalContainer>
                     <CheckoutContainer>
-                        <CheckOutBtn onClick={checkoutHandler}>CHECKOUT</CheckOutBtn>
+                        <button onClick={checkoutHandler}>CHECKOUT</button>
                     </CheckoutContainer>
                 </SummaryContainer>
             </Container>

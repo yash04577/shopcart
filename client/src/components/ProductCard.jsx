@@ -45,34 +45,32 @@ const Price = styled.h4`
 
 const ButtonContainer = styled.div`
     display: flex;
-`
 
-const Button = styled.button`
-    /* width: 130px; */
-    width: 90%;
-    height: 40px;
-    background-color: transparent;
-    border-radius: 12px;
-    border: 1.5px solid black;
-    margin-left: 15px;
-    margin-top: 15px;
-    cursor: pointer;
-    color: white;
-    background-color: teal;
-    border: none;
+    button{
+        width: 90%;
+        height: 40px;
+        background-color: transparent;
+        border-radius: 12px;
+        border: 1.5px solid black;
+        margin-left: 15px;
+        margin-top: 15px;
+        cursor: pointer;
+        color: white;
+        background-color: teal;
+        border: none;
 
-    &:active{
-        box-shadow: 0 0 6px red;
-    }
+        &:active{
+            box-shadow: 0 0 6px red;
+        }
 
-    &:hover{
-        background-color: #0080809e;
-        color: black;
+        &:hover{
+            background-color: #0080809e;
+            color: black;
+        }
     }
 `
 
 const ListViewContainer = styled.div`
-    /* display: flex; */
     flex: 1;
 `
 
@@ -111,7 +109,7 @@ const ProductCard = (props) => {
                 {props.elem.description}
             </DescriptionContainer>
             <ButtonContainer>
-                <Button onClick={()=>{cartHandler(props.elem)}}>Add to Cart</Button>
+                <button onClick={()=>{cartHandler(props.elem)}}>Add to Cart</button>
             </ButtonContainer>
         </ListViewContainer>
     </Wrapper>

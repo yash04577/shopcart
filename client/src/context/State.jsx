@@ -6,7 +6,7 @@ import Context from './Context';
 
 
 const State = (props) => {
-    const [allProducts, setAllProducts] = useState([]);
+    
     const [singleProduct, setSingleProduct] = useState({});
     const[cartItems, setCartItems] = useState([]);
     const [cartItemsPrice, setCartItemsPrice] = useState(0);
@@ -14,18 +14,6 @@ const State = (props) => {
     const [loggedIn, setLoggedIn] = useState(false);
 
     const[searchItem, setSearchItem] = useState([]);
-
-    const getAllProduct = () =>{
-        return allProducts;
-    }
-
-    const getData = async () =>{
-        const {data} = await axios.get("https://dummyjson.com/products")
-        // const {data} = await axios.get("https://dummyjson.com/products/category/smartphones")
-        // console.log(data.products);
-        setAllProducts(data.products)
-    }
-
 
     const getSingleProduct = () =>{
         return singleProduct;
@@ -45,8 +33,6 @@ const State = (props) => {
         let isPresent = false;
 
         cartItems.map(citem =>{
-
-            console.log("quantity ",item.quantity)
 
             if(citem.title === item.title){
                 citem.quantity++;
@@ -91,14 +77,7 @@ const State = (props) => {
 
     const updateSearchItem = async (query) =>{
         const {data} = await axios.get(`https://dummyjson.com/products/search?q=${query}`)
-        // console.log("test = ", data.products[0])
-        // console.log("query = ", query)
-        // context.updateSingleProduct(data.products[0]);
-
-        // console.log("len = ", data.products.length)
         if(data.products.length > 0){
-            // navigate("/singleproduct")
-
             setSearchItem(data.products);
         }
         else{
@@ -140,12 +119,9 @@ const State = (props) => {
         setCartItemsPrice(0);
     }
 
-    useEffect(()=>{
-        getData();
-    })
 
   return (
-    <Context.Provider value={{getAllProduct, getSingleProduct, updateSingleProduct, getCartItem, updateCartItems, removeFromCart, getCartItemsPrice, getSearchItem, updateSearchItem, removePrice, getBadgeCount, getUser, updateUser, getLoggedIn, updateLoggedIn, refresCart}}>
+    <Context.Provider value={{getSingleProduct, updateSingleProduct, getCartItem, updateCartItems, removeFromCart, getCartItemsPrice, getSearchItem, updateSearchItem, removePrice, getBadgeCount, getUser, updateUser, getLoggedIn, updateLoggedIn, refresCart}}>
         {props.children}
     </Context.Provider>
   )
